@@ -1,0 +1,49 @@
+{
+  "name": "react-web-tabs",
+  "version": "0.1.0",
+  "description": "Modular and accessible React tabs component",
+  "main": "dist/react-web-tabs.js",
+  "module": "src/index.js",
+  "author": "Marcus Lindfeldt",
+  "homepage": "https://github.com/marcuslindfeldt/react-web-tabs",
+  "bugs": {
+    "url": "https://github.com/marcuslindfeldt/react-web-tabs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcuslindfeldt/react-web-tabs.git"
+  },
+  "keywords": [
+    "react",
+    "tabs",
+    "a11y"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack -p --progress --colors",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-react": "^6.23.0",
+    "enzyme": "^2.7.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2 || ^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "jest": "^19.0.2",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-test-renderer": "^15.4.2",
+    "webpack": "^2.3.1"
+  },
+  "peerDependencies": {
+    "react": "^15.4.2"
+  }
+}
