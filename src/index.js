@@ -1,2 +1,5 @@
-// eslint-disable-next-line
-export { default as HelloWorld } from './HelloWorld';
+export { default as Tab } from './Tab';
+export { default as Tabs } from './Tabs';
+export { default as TabList } from './TabList';
+export { default as TabPanel } from './TabPanel';
+export { default as TabProvider } from './TabProvider';
