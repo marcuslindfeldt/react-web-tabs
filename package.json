@@ -23,6 +23,8 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prepublish": "yarn run clean && yarn run lint && yarn run test && yarn run build",
+    "clean": "rimraf dist",
     "build": "webpack -p --progress --colors",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -46,6 +48,7 @@
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-test-renderer": "^15.4.2",
+    "rimraf": "^2.6.1",
     "webpack": "^2.3.1"
   },
   "peerDependencies": {
