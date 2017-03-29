@@ -1,6 +1,6 @@
 {
   "name": "react-web-tabs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Modular and accessible React tabs component",
   "main": "dist/react-web-tabs.js",
   "module": "src/index.js",
