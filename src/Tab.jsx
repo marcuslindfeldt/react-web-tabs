@@ -49,7 +49,7 @@ class Tab extends Component {
         aria-selected={isSelected}
         aria-controls={tabFor}
         onClick={this.handleClick}
-        className={`rwt__tab ${className}`}
+        className={`rwt__tab ${className || ''}`}
       >
         {children}
       </button>

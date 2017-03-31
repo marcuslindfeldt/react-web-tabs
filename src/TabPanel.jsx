@@ -37,7 +37,7 @@ class TabPanel extends Component {
         aria-hidden={!isSelected}
         aria-labelledby={`${tabId}-tab`}
         hidden={!isSelected}
-        className={`rwt__tabpanel ${className}`}
+        className={`rwt__tabpanel ${className || ''}`}
       >
         {children}
       </div>

@@ -3,7 +3,7 @@ import TabProvider from './TabProvider';
 
 const Tabs = ({ children, defaultTab, onChange, className, ...props }) => (
   <TabProvider defaultTab={defaultTab} onChange={onChange}>
-    <div className={`rwt__tabs ${className}`} {...props}>
+    <div className={`rwt__tabs ${className || ''}`} {...props}>
       {children}
     </div>
   </TabProvider>

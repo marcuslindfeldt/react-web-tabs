@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const TabList = ({ children, className, ...props }) => (
-  <div {...props} role="tablist" className={`rwt__tablist ${className}`}>
+  <div {...props} role="tablist" className={`rwt__tablist ${className || ''}`}>
     {children}
   </div>
 );

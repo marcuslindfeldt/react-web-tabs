@@ -44,6 +44,14 @@ test('<TabPanel /> should have the correct aria attributes', () => {
   expect(tabPanel.prop('role')).toBe('tabpanel');
 });
 
+test('<TabPanel /> should have the rwt__tabpanel className by default', () => {
+  const tabPanel = mount((
+    <TabPanel tabId="foo"><span>Foo</span></TabPanel>
+  ));
+
+  expect(tabPanel.find('div').prop('className').trim()).toEqual('rwt__tabpanel');
+});
+
 test('<TabPanel /> should be able to set any className', () => {
   const tabPanel = shallow((
     <TabPanel tabId="foo" className="foo"><span>Foo</span></TabPanel>

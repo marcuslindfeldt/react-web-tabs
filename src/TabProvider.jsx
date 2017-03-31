@@ -15,7 +15,7 @@ class TabProvider extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.selection.selected !== nextProps.defaultTab) {
+    if (!this.selection.isSelected(nextProps.defaultTab)) {
       this.selection.select(nextProps.defaultTab);
     }
   }
