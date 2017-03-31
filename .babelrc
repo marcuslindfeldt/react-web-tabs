@@ -1,3 +1,18 @@
 {
-  "presets": [["env"], "stage-2", "react"]
+  "env": {
+    "test": {
+      "presets": [["env"]]
+    },
+    "production": {
+      "presets": [["env"]]
+    },
+    "commonjs": {
+      "presets": [["env", { "modules": "commonjs" }]]
+    }
+  },
+  "presets": [
+    ["env", { "modules": false }],
+    "stage-2",
+    "react"
+  ]
 }

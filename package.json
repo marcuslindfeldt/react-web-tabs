@@ -3,9 +3,16 @@
   "version": "0.1.1",
   "description": "Modular and accessible React tabs component",
   "main": "dist/react-web-tabs.js",
-  "module": "src/index.js",
+  "module": "es/index.js",
   "files": [
-    "dist"
+    "dist",
+    "es",
+    "index.js",
+    "Tab.js",
+    "TabList.js",
+    "TabPanel.js",
+    "Tabs.js",
+    "TabProvider.js"
   ],
   "author": "Marcus Lindfeldt",
   "homepage": "https://github.com/marcuslindfeldt/react-web-tabs",
@@ -30,8 +37,12 @@
   },
   "scripts": {
     "prepublish": "yarn run clean && yarn run lint && yarn run test && yarn run build",
-    "clean": "rimraf dist",
-    "build": "webpack -p --progress --colors",
+    "clean": "rimraf dist es coverage",
+    "build": "yarn run build:es && yarn build:commonjs && yarn run build:umd && yarn run build:umd:min",
+    "build:es": "babel src -d es --ignore __tests__",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d . --ignore __tests__",
+    "build:umd": "cross-env NODE_ENV=production webpack",
+    "build:umd:min": "cross-env NODE_ENV=production webpack -p --output-filename react-web-tabs.min.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -61,5 +72,9 @@
   },
   "peerDependencies": {
     "react": "^15.4.2"
+  },
+  "dependencies": {
+    "babel-cli": "^6.24.0",
+    "cross-env": "^4.0.0"
   }
 }
