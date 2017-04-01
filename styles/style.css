@@ -1,0 +1,28 @@
+.rwt__tablist {
+	border-bottom: 1px solid #ddd;
+}
+
+.rwt__tab {
+	background: transparent;
+	border: 0;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 1rem 2rem;
+}
+
+.rwt__tab[aria-selected="true"] {
+	position: relative;
+}
+
+.rwt__tab[aria-selected="true"]:after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	width: 100%;
+	border-bottom: 3px solid #00d8ff;
+}
+
+.rwt__tab[aria-selected="false"]:hover {
+	background-color: #f4f4f4;
+}
