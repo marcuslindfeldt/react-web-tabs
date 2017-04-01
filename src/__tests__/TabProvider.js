@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { Tab, TabProvider, TabPanel, TabList } from '../';
+import { KeyCode } from '../Tab';
 
 test('<TabProvider /> should exist', () => {
   const tabs = mount((
@@ -26,11 +27,9 @@ test('<TabProvider /> should select correct tab by default', () => {
   ));
 
   expect(tabs.find('#first-tab').prop('aria-selected')).toBe(false);
-  expect(tabs.find('#first-tab').prop('aria-expanded')).toBe(false);
   expect(tabs.find('#first').prop('aria-expanded')).toBe(false);
 
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
-  expect(tabs.find('#second-tab').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
 });
 
@@ -51,11 +50,9 @@ test('<TabProvider /> should update to new tab on click', () => {
   tabs.find('#first-tab').simulate('click');
 
   expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
-  expect(tabs.find('#first-tab').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#first').prop('aria-expanded')).toBe(true);
 
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(false);
-  expect(tabs.find('#second-tab').prop('aria-expanded')).toBe(false);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(false);
 });
 
@@ -97,18 +94,14 @@ test('<TabProvider /> should select correct tab when selected prop updates', () 
   ));
 
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
-  expect(tabs.find('#second-tab').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
   tabs.find('#first-tab').simulate('click');
   expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
-  expect(tabs.find('#first-tab').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#first').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(false);
-  expect(tabs.find('#second-tab').prop('aria-expanded')).toBe(false);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(false);
   tabs.setProps({ defaultTab: 'second' });
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
-  expect(tabs.find('#second-tab').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
 });
 
@@ -131,6 +124,23 @@ test('<TabProvider /> should not change selection when prop updates to currently
   tabs.find('#second-tab').simulate('click');
   tabs.setProps({ defaultTab: 'second' });
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
-  expect(tabs.find('#second-tab').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
+});
+
+test('<TabProvider /> should shift tab using keyboard navigation', () => {
+  const tabs = mount((
+    <TabProvider defaultTab="second">
+      <div className="rwt__tabs">
+        <TabList>
+          <Tab tabFor="first"><span>Tab 1</span></Tab>
+          <Tab tabFor="second"><span>Tab 2</span></Tab>
+        </TabList>
+        <TabPanel tabId="first"><p>TabPanel 1</p></TabPanel>
+        <TabPanel tabId="second"><p>TabPanel 2</p></TabPanel>
+      </div>
+    </TabProvider>
+  ));
+
+  tabs.find('#second-tab').simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
+  expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
 });

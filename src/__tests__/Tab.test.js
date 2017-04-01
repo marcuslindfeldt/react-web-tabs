@@ -1,6 +1,19 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Tab from '../Tab';
+import Tab, { KeyCode } from '../Tab';
+
+const mockSelection = () => ({
+  register: jest.fn(),
+  unregister: jest.fn(),
+  subscribe: jest.fn(),
+  unsubscribe: jest.fn(),
+  isSelected: jest.fn(),
+  select: jest.fn(),
+  selectPrevious: jest.fn(),
+  selectNext: jest.fn(),
+  selectFirst: jest.fn(),
+  selectLast: jest.fn(),
+});
 
 test('<Tab /> should exist', () => {
   const tab = shallow((
@@ -44,14 +57,12 @@ test('<Tab /> should be selectable', () => {
   ));
 
   expect(unselected.prop('aria-selected')).toBe(false);
-  expect(unselected.prop('aria-expanded')).toBe(false);
 
   const selected = shallow((
     <Tab tabFor="foo" selected><span>Tab 1</span></Tab>
   ));
 
   expect(selected.prop('aria-selected')).toBe(true);
-  expect(selected.prop('aria-expanded')).toBe(true);
 });
 
 test('<Tab /> should have the correct aria attributes', () => {
@@ -72,51 +83,151 @@ test('<Tab /> should be able to set any className', () => {
   expect(tab.hasClass('foo')).toBe(true);
 });
 
-test('<Tab /> should subscribe and unsubscribe for context changes', () => {
-  const selection = {
-    subscribe: jest.fn(),
-    unsubscribe: jest.fn(),
-    isSelected: jest.fn(),
-  };
+test('<Tab /> should be able to select previous tab with LEFT_ARROW key', () => {
+  const selection = mockSelection();
   const tab = mount(
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
         selection: React.PropTypes.object.isRequired,
       },
-      context: {
-        selection,
-      },
+      context: { selection },
     },
   );
 
-  expect(selection.subscribe).toHaveBeenCalledTimes(1);
-  tab.unmount();
-  expect(selection.subscribe).not.toHaveBeenCalledTimes(2);
-  expect(selection.unsubscribe).toHaveBeenCalledTimes(1);
+  tab.simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
+
+  expect(selection.selectPrevious).toHaveBeenCalled();
 });
 
-test('<Tab /> should unsubscribe with the same function as subscribed with', () => {
-  const selection = {
-    subscribe: jest.fn(),
-    unsubscribe: jest.fn(),
-    isSelected: jest.fn(),
-  };
+test('<Tab /> should be able to select next tab RIGHT_ARROW key', () => {
+  const selection = mockSelection();
   const tab = mount(
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
         selection: React.PropTypes.object.isRequired,
       },
-      context: {
-        selection,
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.RIGHT_ARROW });
+
+  expect(selection.selectNext).toHaveBeenCalled();
+});
+
+test('<Tab /> should be able to select first tab with HOME key', () => {
+  const selection = mockSelection();
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
       },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.HOME });
+
+  expect(selection.selectFirst).toHaveBeenCalled();
+});
+
+test('<Tab /> should be able to select last tab with END key', () => {
+  const selection = mockSelection();
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.END });
+
+  expect(selection.selectLast).toHaveBeenCalled();
+});
+
+test('<Tab /> should not change selection on unrecognized key event', () => {
+  const selection = mockSelection();
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown');
+
+  expect(selection.selectFirst).not.toHaveBeenCalled();
+  expect(selection.selectLast).not.toHaveBeenCalled();
+  expect(selection.selectPrevious).not.toHaveBeenCalled();
+  expect(selection.selectNext).not.toHaveBeenCalled();
+  expect(selection.select).not.toHaveBeenCalled();
+});
+
+test('<Tab /> should shift focus if selecting a different tab using keyboard navigation', () => {
+  const selection = mockSelection();
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
+
+  expect(selection.selectPrevious).toHaveBeenCalledWith({ focus: true });
+});
+
+test('<Tab /> should subscribe and unsubscribe for context changes', () => {
+  const selection = mockSelection();
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  expect(selection.register).toHaveBeenCalledTimes(1);
+  expect(selection.subscribe).toHaveBeenCalledTimes(1);
+  tab.unmount();
+  expect(selection.register).not.toHaveBeenCalledTimes(2);
+  expect(selection.subscribe).not.toHaveBeenCalledTimes(2);
+  expect(selection.unsubscribe).toHaveBeenCalledTimes(1);
+  expect(selection.unregister).toHaveBeenCalledTimes(1);
+});
+
+test('<Tab /> should unsubscribe with the same function as subscribed with', () => {
+  const selection = mockSelection();
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
     },
   );
 
   tab.unmount();
   const subscribeArgs = selection.subscribe.mock.calls[0];
   const unsubscribeArgs = selection.unsubscribe.mock.calls[0];
+  const registerArgs = selection.register.mock.calls[0];
+  const unregisterArgs = selection.unregister.mock.calls[0];
 
   expect(subscribeArgs).toEqual(unsubscribeArgs);
+  expect(registerArgs).toEqual(unregisterArgs);
 });
