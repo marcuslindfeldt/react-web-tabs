@@ -25,10 +25,10 @@ Then with a module bundler like [webpack](https://webpack.js.org/) you can impor
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 
 // using ES6 Partial imports
-import Tabs from 'react-web-tabs/Tabs';
-import Tab from 'react-web-tabs/Tab';
-import TabPanel from 'react-web-tabs/TabPanel';
-import TabList from 'react-web-tabs/TabList';
+import Tabs from 'react-web-tabs/lib/Tabs';
+import Tab from 'react-web-tabs/lib/Tab';
+import TabPanel from 'react-web-tabs/lib/TabPanel';
+import TabList from 'react-web-tabs/lib/TabList';
 
 // using CommonJS modules
 var Tabs = require('react-web-tabs').Tabs;
