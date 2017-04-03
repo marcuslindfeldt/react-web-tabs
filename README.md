@@ -77,5 +77,64 @@ class App extends Component {
 render(<App/>, document.getElementById('app'));
 ```
 
+If you need to make it more interesting and mix in other elements you can do that to:
+
+```js
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { TabProvider, Tab, TabPanel, TabList } from 'react-web-tabs';
+
+
+class App extends Component {
+  render() {
+    return (
+      <TabProvider defaultTab="one">
+        <section className="my-tabs">
+          <TabList className="my-tablist">
+            <Tab tabFor="one">Tab 1</Tab>
+            <span className="divider">•</span>
+            <Tab tabFor="two">Tab 2</Tab>
+            <span className="divider">•</span>
+            <Tab tabFor="three" className="my-tab">Tab 3</Tab>
+          </TabList>
+          <div className="wrapper">
+            <TabPanel tabId="one">
+              <p>Tab 1 content</p>
+            </TabPanel>
+            <TabPanel tabId="two">
+              <p>Tab 2 content</p>
+            </TabPanel>
+            <TabPanel tabId="three">
+              <p>Tab 3 content</p>
+            </TabPanel>
+          </div>
+        </section>
+      </TabProvider>
+    );
+  }
+}
+
+render(<App/>, document.getElementById('app'));
+```
+
+And of course every component supports adding additional props like custom className's or data attributes.
+
+## Styles
+
+Some basic styles are provided as well but they are optional as the tabs are fully functional without styling and I do encourage you to create your own. Both minified and unminified versions are available in the `/dist` folder.
+
+With webpack:
+```js
+import 'react-web-tabs/dist/react-web-tabs.css';
+```
+
+## Keyboard support
+The following keys can be used to navigate between tabs when in focus, according to the [WAI-ARIA Authoring Practices 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel).
+
+* <kbd>←</kbd> Navigate to previous tab
+* <kbd>→</kbd> Navigate to next tab
+* <kbd>HOME</kbd> Navigate to first tab
+* <kbd>END</kbd> Navigate to last tab
+
 ## Licence
 MIT
