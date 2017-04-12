@@ -57,10 +57,6 @@ class TabSelection {
   }
 
   unregister(tabId) {
-    if (this.isSelected(tabId)) {
-      this.selectPrevious();
-    }
-
     this.tabs = this.tabs.filter(id => id !== tabId);
   }
 

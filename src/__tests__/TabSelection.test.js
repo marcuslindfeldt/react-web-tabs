@@ -34,7 +34,7 @@ test('TabSelection should be able to unregister', () => {
   expect(tabSelection.tabs).toEqual(['foo']);
 });
 
-test('TabSelection should be able to select unregistered tab', () => {
+test('TabSelection should not be able to select unregistered tab', () => {
   const tabSelection = new TabSelection();
   tabSelection.register('foo');
   tabSelection.register('bar');
@@ -79,16 +79,6 @@ test('TabSelection should have roving selection when selecting prev/next tab', (
   tabSelection.selectPrevious();
   expect(tabSelection.selected).toBe('baz');
   tabSelection.selectNext();
-  expect(tabSelection.selected).toBe('foo');
-});
-
-test('TabSelection should set previous tab as selected if unregistering the selected tab', () => {
-  const tabSelection = new TabSelection('bar');
-  tabSelection.register('foo');
-  tabSelection.register('bar');
-  tabSelection.register('baz');
-
-  tabSelection.unregister('bar');
   expect(tabSelection.selected).toBe('foo');
 });
 
