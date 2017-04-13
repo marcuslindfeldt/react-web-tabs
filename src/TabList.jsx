@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const TabList = ({ children, className, ...props }) => (
   <div {...props} role="tablist" className={`rwt__tablist ${className || ''}`}>
