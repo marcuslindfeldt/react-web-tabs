@@ -4,7 +4,10 @@
 [![Coveralls](https://img.shields.io/coveralls/marcuslindfeldt/react-web-tabs.svg?style=flat-square)](https://coveralls.io/github/marcuslindfeldt/react-web-tabs?branch=master)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/marcuslindfeldt/react-web-tabs/master/LICENSE)
 
-Modular and accessible React tabs component
+Modular and accessible React tabs according to the [WAI-ARIA Authoring Practices 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel).
+
+## Demo
+See the [demo website](https://react-web-tabs.firebaseapp.com/) for a live example.
 
 ## Installation
 > Note! This package depends on [React](https://facebook.github.io/react/) ^15.4.2
@@ -54,7 +57,10 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 class App extends Component {
   render() {
     return (
-      <Tabs defaultTab="one">
+      <Tabs
+        defaultTab="one"
+        onChange={(tabId) => { console.log(tabId) }}
+      >
         <TabList>
           <Tab tabFor="one">Tab 1</Tab>
           <Tab tabFor="two">Tab 2</Tab>
@@ -135,6 +141,9 @@ The following keys can be used to navigate between tabs when in focus, according
 * <kbd>→</kbd> Navigate to next tab
 * <kbd>HOME</kbd> Navigate to first tab
 * <kbd>END</kbd> Navigate to last tab
+
+## Issues
+If you find a bug, please file an issue on the [issue tracker on GitHub](https://github.com/marcuslindfeldt/react-web-tabs/issues).
 
 ## Licence
 MIT
