@@ -45,6 +45,10 @@ The id of the tab that should be selected by default. If none is provided it wil
 </TabProvider>
 ```
 
+## vertical: bool (optional)
+
+Provides support for vertically aligned tabs. Correct aria-attributes will be set and keyboard shortcuts will change from right/left arrow to up/down arrow.
+
 ## onChange: func (optional)
 
 A callback that is triggered when a new tab has been selected.

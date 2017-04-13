@@ -13,6 +13,7 @@ const mockSelection = () => ({
   selectNext: jest.fn(),
   selectFirst: jest.fn(),
   selectLast: jest.fn(),
+  isVertical: jest.fn(),
 });
 
 test('<Tab /> should exist', () => {
@@ -115,6 +116,88 @@ test('<Tab /> should be able to select next tab RIGHT_ARROW key', () => {
   tab.simulate('keydown', { keyCode: KeyCode.RIGHT_ARROW });
 
   expect(selection.selectNext).toHaveBeenCalled();
+});
+
+test('<Tab /> should not be able to select prev/next tab with UP_ARROW/DOWN_ARROW key when horizontal', () => {
+  const selection = mockSelection();
+
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.UP_ARROW });
+  tab.simulate('keydown', { keyCode: KeyCode.DOWN_ARROW });
+
+  expect(selection.selectPrevious).not.toHaveBeenCalled();
+  expect(selection.selectNext).not.toHaveBeenCalled();
+});
+
+test('<Tab /> should be able to select previous tab with UP_ARROW key when vertical', () => {
+  const selection = mockSelection();
+
+  selection.isVertical = jest.fn(() => true);
+
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.UP_ARROW });
+
+  expect(selection.selectPrevious).toHaveBeenCalled();
+});
+
+test('<Tab /> should be able to select next tab DOWN_ARROW key when vertical', () => {
+  const selection = mockSelection();
+
+  selection.isVertical = jest.fn(() => true);
+
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.DOWN_ARROW });
+
+  expect(selection.selectNext).toHaveBeenCalled();
+});
+
+test('<Tab /> should not be able to select prev/next tab with LEFT_ARROW/RIGHT_ARROW key when vertical', () => {
+  const selection = mockSelection();
+
+  selection.isVertical = jest.fn(() => true);
+
+  const tab = mount(
+    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
+    {
+      childContextTypes: {
+        selection: React.PropTypes.object.isRequired,
+      },
+      context: { selection },
+    },
+  );
+
+  tab.simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
+  tab.simulate('keydown', { keyCode: KeyCode.RIGHT_ARROW });
+
+  expect(selection.selectPrevious).not.toHaveBeenCalled();
+  expect(selection.selectNext).not.toHaveBeenCalled();
 });
 
 test('<Tab /> should be able to select first tab with HOME key', () => {

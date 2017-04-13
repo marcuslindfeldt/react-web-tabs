@@ -5,7 +5,9 @@ export const KeyCode = {
   END: 35,
   HOME: 36,
   LEFT_ARROW: 37,
+  UP_ARROW: 38,
   RIGHT_ARROW: 39,
+  DOWN_ARROW: 40,
 };
 
 class Tab extends Component {
@@ -69,20 +71,21 @@ class Tab extends Component {
   }
 
   handleKeyDown(e) {
-    switch (e.keyCode) {
-      case KeyCode.LEFT_ARROW:
-        this.context.selection.selectPrevious({ focus: true });
-        break;
-      case KeyCode.RIGHT_ARROW:
-        this.context.selection.selectNext({ focus: true });
-        break;
-      case KeyCode.HOME:
-        this.context.selection.selectFirst({ focus: true });
-        break;
-      case KeyCode.END:
-        this.context.selection.selectLast({ focus: true });
-        break;
-      default:
+    const verticalOrientation = this.context.selection.isVertical();
+    if (e.keyCode === KeyCode.HOME) {
+      this.context.selection.selectFirst({ focus: true });
+    } else if (e.keyCode === KeyCode.END) {
+      this.context.selection.selectLast({ focus: true });
+    } else if (e.keyCode === KeyCode.LEFT_ARROW && !verticalOrientation) {
+      this.context.selection.selectPrevious({ focus: true });
+    } else if (e.keyCode === KeyCode.RIGHT_ARROW && !verticalOrientation) {
+      this.context.selection.selectNext({ focus: true });
+    } else if (e.keyCode === KeyCode.UP_ARROW && verticalOrientation) {
+      e.preventDefault();
+      this.context.selection.selectPrevious({ focus: true });
+    } else if (e.keyCode === KeyCode.DOWN_ARROW && verticalOrientation) {
+      e.preventDefault();
+      this.context.selection.selectNext({ focus: true });
     }
   }
 

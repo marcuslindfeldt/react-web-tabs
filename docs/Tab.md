@@ -55,3 +55,10 @@ The following keys can be used to navigate between tabs when in focus, according
 * <kbd>→</kbd> Navigate to next tab
 * <kbd>HOME</kbd> Navigate to first tab
 * <kbd>END</kbd> Navigate to last tab
+
+When the tabs are vertical:
+
+* <kbd>↑</kbd> Navigate to previous tab
+* <kbd>↓</kbd> Navigate to next tab
+* <kbd>HOME</kbd> Navigate to first tab
+* <kbd>END</kbd> Navigate to last tab

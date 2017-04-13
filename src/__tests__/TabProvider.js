@@ -144,3 +144,38 @@ test('<TabProvider /> should shift tab using keyboard navigation', () => {
   tabs.find('#second-tab').simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
   expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
 });
+
+test('<TabProvider /> should shift tab using keyboard navigation when vertical', () => {
+  const tabs = mount((
+    <TabProvider defaultTab="second" vertical>
+      <div className="rwt__tabs">
+        <TabList>
+          <Tab tabFor="first"><span>Tab 1</span></Tab>
+          <Tab tabFor="second"><span>Tab 2</span></Tab>
+        </TabList>
+        <TabPanel tabId="first"><p>TabPanel 1</p></TabPanel>
+        <TabPanel tabId="second"><p>TabPanel 2</p></TabPanel>
+      </div>
+    </TabProvider>
+  ));
+
+  tabs.find('#second-tab').simulate('keydown', { keyCode: KeyCode.UP_ARROW });
+  expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
+});
+
+test('<TabProvider /> should set correct aria properties on <TabList> when vertical', () => {
+  const tabs = mount((
+    <TabProvider defaultTab="second" vertical>
+      <div className="rwt__tabs">
+        <TabList>
+          <Tab tabFor="first"><span>Tab 1</span></Tab>
+          <Tab tabFor="second"><span>Tab 2</span></Tab>
+        </TabList>
+        <TabPanel tabId="first"><p>TabPanel 1</p></TabPanel>
+        <TabPanel tabId="second"><p>TabPanel 2</p></TabPanel>
+      </div>
+    </TabProvider>
+  ));
+
+  expect(tabs.find('.rwt__tablist').prop('aria-orientation')).toBe('vertical');
+});

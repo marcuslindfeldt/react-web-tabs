@@ -10,7 +10,7 @@ Modular and accessible React tabs according to the [WAI-ARIA Authoring Practices
 See the [demo website](https://react-web-tabs.firebaseapp.com/) for a live example.
 
 ## Installation
-> Note! This package depends on [React](https://facebook.github.io/react/) ^15.4.2
+> Note! This package depends on [React](https://facebook.github.io/react/) ^15.5.4
 
 Using [npm](https://www.npmjs.com/):
 ```bash
@@ -137,8 +137,16 @@ import 'react-web-tabs/dist/react-web-tabs.css';
 ## Keyboard support
 The following keys can be used to navigate between tabs when in focus, according to the [WAI-ARIA Authoring Practices 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel).
 
+
 * <kbd>←</kbd> Navigate to previous tab
 * <kbd>→</kbd> Navigate to next tab
+* <kbd>HOME</kbd> Navigate to first tab
+* <kbd>END</kbd> Navigate to last tab
+
+When the tabs are vertical:
+
+* <kbd>↑</kbd> Navigate to previous tab
+* <kbd>↓</kbd> Navigate to next tab
 * <kbd>HOME</kbd> Navigate to first tab
 * <kbd>END</kbd> Navigate to last tab
 

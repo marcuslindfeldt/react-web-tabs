@@ -10,18 +10,24 @@ class TabProvider extends Component {
   static defaultProps = {
     defaultTab: undefined,
     onChange: undefined,
+    vertical: false,
   }
 
   static propTypes = {
     children: PropTypes.node.isRequired,
     defaultTab: PropTypes.string,
+    vertical: PropTypes.bool,
     onChange: PropTypes.func,
   }
 
   constructor(props) {
     super(props);
 
-    this.selection = new TabSelection(props.defaultTab, props.onChange);
+    this.selection = new TabSelection({
+      defaultTab: props.defaultTab,
+      vertical: props.vertical,
+      onChange: props.onChange,
+    });
   }
 
   getChildContext() {

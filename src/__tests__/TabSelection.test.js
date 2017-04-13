@@ -1,7 +1,7 @@
 import TabSelection from '../TabSelection';
 
 test('TabSelection should accept default selection', () => {
-  const tabSelection = new TabSelection('foo');
+  const tabSelection = new TabSelection({ defaultTab: 'foo' });
   expect(tabSelection).toBeDefined();
   expect(tabSelection.selected).toBe('foo');
 });
@@ -44,7 +44,7 @@ test('TabSelection should not be able to select unregistered tab', () => {
 });
 
 test('TabSelection should be able to select previous tab', () => {
-  const tabSelection = new TabSelection('baz');
+  const tabSelection = new TabSelection({ defaultTab: 'baz' });
   tabSelection.register('foo');
   tabSelection.register('bar');
   tabSelection.register('baz');
@@ -57,7 +57,7 @@ test('TabSelection should be able to select previous tab', () => {
 });
 
 test('TabSelection should be able to select next tab', () => {
-  const tabSelection = new TabSelection('foo');
+  const tabSelection = new TabSelection({ defaultTab: 'foo' });
   tabSelection.register('foo');
   tabSelection.register('bar');
   tabSelection.register('baz');
@@ -70,7 +70,7 @@ test('TabSelection should be able to select next tab', () => {
 });
 
 test('TabSelection should have roving selection when selecting prev/next tab', () => {
-  const tabSelection = new TabSelection('foo');
+  const tabSelection = new TabSelection({ defaultTab: 'foo' });
   tabSelection.register('foo');
   tabSelection.register('bar');
   tabSelection.register('baz');
@@ -83,7 +83,7 @@ test('TabSelection should have roving selection when selecting prev/next tab', (
 });
 
 test('TabSelection should be able to select first tab', () => {
-  const tabSelection = new TabSelection('baz');
+  const tabSelection = new TabSelection({ defaultTab: 'baz' });
   tabSelection.register('foo');
   tabSelection.register('bar');
   tabSelection.register('baz');
@@ -94,7 +94,7 @@ test('TabSelection should be able to select first tab', () => {
 });
 
 test('TabSelection should be able to select last tab', () => {
-  const tabSelection = new TabSelection('foo');
+  const tabSelection = new TabSelection({ defaultTab: 'foo' });
   tabSelection.register('foo');
   tabSelection.register('bar');
   tabSelection.register('baz');
@@ -170,7 +170,7 @@ test('TabSelection should be able to unsubscribe', () => {
 test('TabSelection should call an optional onChange callback when something has changed', () => {
   const onChange = jest.fn();
 
-  const tabSelection = new TabSelection('foo', onChange);
+  const tabSelection = new TabSelection({ defaultTab: 'foo', onChange });
   tabSelection.register('foo');
   tabSelection.register('bar');
 

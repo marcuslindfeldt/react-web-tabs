@@ -22,6 +22,19 @@ Any child node
 </TabList>
 ```
 
+## vertical: bool (optional)
+
+Adds the `aria-orientation="vertical"` attribute.
+Implicitly set when wrapped in a `<TabProvider>` or `<Tabs>` component with the vertical prop.
+
+```js
+<TabList vertical>
+  <button>Tab 1</button>
+  <button>Tab 2</button>
+</TabList>
+```
+
+
 
 ## props: mixed (optional)
 

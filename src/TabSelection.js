@@ -1,9 +1,10 @@
 class TabSelection {
-  constructor(defaultTab, onChange) {
+  constructor({ defaultTab, vertical = false, onChange } = {}) {
     this.selected = defaultTab;
     this.tabs = [];
     this.subscribtions = [];
     this.onChange = onChange;
+    this.vertical = vertical;
   }
 
   select(tabId, { focus = false } = {}) {
@@ -41,6 +42,10 @@ class TabSelection {
 
   isSelected(tabId) {
     return tabId === this.selected;
+  }
+
+  isVertical() {
+    return this.vertical;
   }
 
   register(tabId) {

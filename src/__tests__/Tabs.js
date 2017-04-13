@@ -37,6 +37,14 @@ test('<Tabs /> should render children', () => {
   expect(tabs.find('#child')).toBeDefined();
 });
 
+test('<Tabs /> should be able to pass vertical prop', () => {
+  const tabs = mount((
+    <Tabs vertical><p>Foo</p></Tabs>
+  ));
+
+  expect(tabs.find('[data-rwt-vertical="true"]')).toBeDefined();
+});
+
 test('<Tabs /> should by wrapped by a tabProvider', () => {
   const tabs = mount((
     <Tabs><p>Foo</p></Tabs>

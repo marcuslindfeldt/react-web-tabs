@@ -35,3 +35,11 @@ test('<TabList /> should be able to set any className', () => {
 
   expect(tabList.hasClass('foo')).toBe(true);
 });
+
+test('<TabList /> should be set aria-orientation when vertical', () => {
+  const tabList = shallow((
+    <TabList vertical><span>Foo</span></TabList>
+  ));
+
+  expect(tabList.prop('aria-orientation')).toBe('vertical');
+});
