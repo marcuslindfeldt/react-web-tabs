@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class TabPanel extends Component {
+  static contextTypes = {
+    selection: React.PropTypes.object,
+  }
+
+  static defaultProps = {
+    selected: false,
+    className: '',
+  }
+
+  static propTypes = {
+    tabId: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    selected: PropTypes.bool,
+  }
+
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
@@ -45,21 +61,5 @@ class TabPanel extends Component {
     );
   }
 }
-
-TabPanel.contextTypes = {
-  selection: React.PropTypes.object,
-};
-
-TabPanel.defaultProps = {
-  selected: false,
-  className: '',
-};
-
-TabPanel.propTypes = {
-  tabId: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  selected: PropTypes.bool,
-};
 
 export default TabPanel;

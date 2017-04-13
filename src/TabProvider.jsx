@@ -3,6 +3,21 @@ import PropTypes from 'prop-types';
 import TabSelection from './TabSelection';
 
 class TabProvider extends Component {
+  static childContextTypes = {
+    selection: React.PropTypes.object,
+  }
+
+  static defaultProps = {
+    defaultTab: undefined,
+    onChange: undefined,
+  }
+
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    defaultTab: PropTypes.string,
+    onChange: PropTypes.func,
+  }
+
   constructor(props) {
     super(props);
 
@@ -27,20 +42,5 @@ class TabProvider extends Component {
     return children;
   }
 }
-
-TabProvider.childContextTypes = {
-  selection: React.PropTypes.object,
-};
-
-TabProvider.defaultProps = {
-  defaultTab: undefined,
-  onChange: undefined,
-};
-
-TabProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-  defaultTab: PropTypes.string,
-  onChange: PropTypes.func,
-};
 
 export default TabProvider;

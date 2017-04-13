@@ -9,6 +9,24 @@ export const KeyCode = {
 };
 
 class Tab extends Component {
+  static contextTypes = {
+    selection: React.PropTypes.object,
+  }
+
+  static defaultProps = {
+    className: '',
+    selected: false,
+    onClick: undefined,
+  }
+
+  static propTypes = {
+    tabFor: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    selected: PropTypes.bool,
+    onClick: PropTypes.func,
+  }
+
   constructor(props, context) {
     super(props, context);
     this.update = this.update.bind(this);
@@ -93,23 +111,5 @@ class Tab extends Component {
     );
   }
 }
-
-Tab.contextTypes = {
-  selection: React.PropTypes.object,
-};
-
-Tab.defaultProps = {
-  className: '',
-  selected: false,
-  onClick: undefined,
-};
-
-Tab.propTypes = {
-  tabFor: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  selected: PropTypes.bool,
-  onClick: PropTypes.func,
-};
 
 export default Tab;
