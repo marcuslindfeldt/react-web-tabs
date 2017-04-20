@@ -11,6 +11,25 @@ test('<TabPanel /> should exist', () => {
   expect(tabPanel).toBeDefined();
 });
 
+test('<TabPanel /> should render component', () => {
+  const Foo = () => (<span id="content">Foo</span>);
+
+  const tabPanel = mount((
+    <TabPanel tabId="foo" component={Foo} />
+  ));
+
+  expect(tabPanel.find('#content')).toBeTruthy();
+  expect(tabPanel.find('Foo')).toBeTruthy();
+});
+
+test('<TabPanel /> should be able to pass a render function', () => {
+  const tabPanel = mount((
+    <TabPanel tabId="foo" render={() => (<span id="content">Foo</span>)} />
+  ));
+
+  expect(tabPanel.find('#content')).toBeTruthy();
+});
+
 test('<TabPanel /> should render children', () => {
   const tabPanel = mount((
     <TabPanel tabId="foo"><span id="content">Foo</span></TabPanel>

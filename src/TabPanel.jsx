@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+/* eslint-disable no-nested-ternary */
 class TabPanel extends Component {
   static contextTypes = {
     selection: PropTypes.object,
@@ -9,13 +10,18 @@ class TabPanel extends Component {
   static defaultProps = {
     selected: false,
     className: '',
+    component: null,
+    children: null,
+    render: null,
   }
 
   static propTypes = {
     tabId: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     className: PropTypes.string,
     selected: PropTypes.bool,
+    component: PropTypes.func,
+    render: PropTypes.func,
   }
 
   constructor(props) {
@@ -40,10 +46,21 @@ class TabPanel extends Component {
   }
 
   render() {
-    const { tabId, children, selected, className, ...props } = this.props;
+    const {
+      component,
+      render,
+      tabId,
+      children,
+      selected,
+      className,
+      ...props
+    } = this.props;
+
     const isSelected = this.context.selection !== undefined ?
       this.context.selection.isSelected(tabId) :
       selected;
+
+    const childProps = { selected: isSelected };
 
     return (
       <div
@@ -56,7 +73,13 @@ class TabPanel extends Component {
         hidden={!isSelected}
         className={`rwt__tabpanel ${className || ''}`}
       >
-        {children}
+        {component ? (
+          React.createElement(component, childProps)
+        ) : render ? (
+          render(childProps) : null
+        ) : children ? (
+          children : null
+        ) : null}
       </div>
     );
   }
