@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import TabSelection from './TabSelection';
 
 class TabProvider extends Component {
   static childContextTypes = {
-    selection: React.PropTypes.object,
+    selection: PropTypes.object,
   }
 
   static defaultProps = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class TabPanel extends Component {
   static contextTypes = {
-    selection: React.PropTypes.object,
+    selection: PropTypes.object,
   }
 
   static defaultProps = {

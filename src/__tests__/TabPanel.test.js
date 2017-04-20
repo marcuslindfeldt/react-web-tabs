@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import TabPanel from '../TabPanel';
 
@@ -71,7 +72,7 @@ test('<TabPanel /> should subscribe and unsubscribe for context changes', () => 
     <TabPanel tabId="foo"><span>Foo</span></TabPanel>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: {
         selection,
@@ -95,7 +96,7 @@ test('<TabPanel /> should unsubscribe with the same function as subscribed with'
     <TabPanel tabId="foo"><span>Foo</span></TabPanel>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: {
         selection,

@@ -12,7 +12,7 @@ export const KeyCode = {
 
 class Tab extends Component {
   static contextTypes = {
-    selection: React.PropTypes.object,
+    selection: PropTypes.object,
   }
 
   static defaultProps = {

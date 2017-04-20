@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
 import Tab, { KeyCode } from '../Tab';
 
@@ -90,7 +91,7 @@ test('<Tab /> should be able to select previous tab with LEFT_ARROW key', () => 
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -107,7 +108,7 @@ test('<Tab /> should be able to select next tab RIGHT_ARROW key', () => {
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -125,7 +126,7 @@ test('<Tab /> should not be able to select prev/next tab with UP_ARROW/DOWN_ARRO
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -147,7 +148,7 @@ test('<Tab /> should be able to select previous tab with UP_ARROW key when verti
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -167,7 +168,7 @@ test('<Tab /> should be able to select next tab DOWN_ARROW key when vertical', (
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -187,7 +188,7 @@ test('<Tab /> should not be able to select prev/next tab with LEFT_ARROW/RIGHT_A
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -206,7 +207,7 @@ test('<Tab /> should be able to select first tab with HOME key', () => {
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -223,7 +224,7 @@ test('<Tab /> should be able to select last tab with END key', () => {
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -240,7 +241,7 @@ test('<Tab /> should not change selection on unrecognized key event', () => {
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -261,7 +262,7 @@ test('<Tab /> should shift focus if selecting a different tab using keyboard nav
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -278,7 +279,7 @@ test('<Tab /> should subscribe and unsubscribe for context changes', () => {
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },
@@ -299,7 +300,7 @@ test('<Tab /> should unsubscribe with the same function as subscribed with', () 
     <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
     {
       childContextTypes: {
-        selection: React.PropTypes.object.isRequired,
+        selection: PropTypes.object.isRequired,
       },
       context: { selection },
     },

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 class TabList extends Component {
   static contextTypes = {
-    selection: React.PropTypes.object,
+    selection: PropTypes.object,
   }
 
   static defaultProps = {
