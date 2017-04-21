@@ -1,6 +1,6 @@
 {
   "name": "react-web-tabs",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Modular and accessible React tabs component",
   "main": "dist/react-web-tabs.js",
   "module": "es/index.js",
@@ -32,7 +32,7 @@
   },
   "scripts": {
     "prepublish": "yarn run clean && yarn run lint && yarn run test && yarn run build",
-    "clean": "rimraf dist es coverage",
+    "clean": "rimraf dist es lib coverage",
     "build": "yarn run build:es && yarn build:commonjs && yarn run build:umd && yarn run build:umd:min && yarn build:styles && yarn build:styles:min",
     "build:es": "babel src -d es --ignore __tests__",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --ignore __tests__",

@@ -23,6 +23,12 @@ export default ({ minify = false } = {}) => ({
       amd: 'react-dom',
       root: 'ReactDOM',
     },
+    'prop-types': {
+      commonjs: 'prop-types',
+      commonjs2: 'prop-types',
+      amd: 'prop-types',
+      root: 'PropTypes',
+    },
   },
 
   resolve: {
