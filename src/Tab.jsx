@@ -71,6 +71,10 @@ class Tab extends Component {
   }
 
   handleKeyDown(e) {
+    if (!this.context.selection) {
+      return;
+    }
+
     const verticalOrientation = this.context.selection.isVertical();
     if (e.keyCode === KeyCode.HOME) {
       this.context.selection.selectFirst({ focus: true });
