@@ -9,6 +9,9 @@ Modular and accessible React tabs according to the [WAI-ARIA Authoring Practices
 ## Demo
 See the [demo website](https://react-web-tabs.firebaseapp.com/) for a live example.
 
+## Documentation
+Read the [docs](https://marcuslindfeldt.github.io/react-web-tabs/) for more comprehensive examples and [API Reference](https://marcuslindfeldt.github.io/react-web-tabs/docs/api/).
+
 ## Installation
 > Note! This package depends on [React](https://facebook.github.io/react/) ^15.5.4
 
