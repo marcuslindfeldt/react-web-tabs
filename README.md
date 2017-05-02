@@ -10,7 +10,7 @@ Modular and accessible React tabs according to the [WAI-ARIA Authoring Practices
 See the [demo website](https://react-web-tabs.firebaseapp.com/) for a live example.
 
 ## Documentation
-Read the [docs](https://marcuslindfeldt.github.io/react-web-tabs/) for more comprehensive examples and [API Reference](https://marcuslindfeldt.github.io/react-web-tabs/docs/api/).
+Read the [docs](https://marcuslindfeldt.github.io/react-web-tabs/) for more comprehensive [examples](https://marcuslindfeldt.github.io/react-web-tabs/examples) and [API Reference](https://marcuslindfeldt.github.io/react-web-tabs/docs/api/).
 
 ## Installation
 > Note! This package depends on [React](https://facebook.github.io/react/) ^15.5.4
@@ -152,6 +152,14 @@ When the tabs are vertical:
 * <kbd>↓</kbd> Navigate to next tab
 * <kbd>HOME</kbd> Navigate to first tab
 * <kbd>END</kbd> Navigate to last tab
+
+According to the [WAI-ARIA Practices 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel) only the active tab should receive focus upon entering and leaving the tab list. Some people find this behavior confusing so to make all tabs focusable you can override this behavior by adding the `focusable` flag to each `<Tab>` component. E.g.
+
+```js
+
+<Tab focusable tabFor="my-tab">React web tabs</Tab>
+```
+
 
 ## Issues
 If you find a bug, please file an issue on the [issue tracker on GitHub](https://github.com/marcuslindfeldt/react-web-tabs/issues).
