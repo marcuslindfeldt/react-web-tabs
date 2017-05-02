@@ -18,6 +18,7 @@ class Tab extends Component {
   static defaultProps = {
     className: '',
     selected: false,
+    focusable: false,
     onClick: undefined,
   }
 
@@ -26,6 +27,7 @@ class Tab extends Component {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     selected: PropTypes.bool,
+    focusable: PropTypes.bool,
     onClick: PropTypes.func,
   }
 
@@ -94,7 +96,7 @@ class Tab extends Component {
   }
 
   render() {
-    const { tabFor, children, className, selected, ...props } = this.props;
+    const { tabFor, children, className, selected, focusable, ...props } = this.props;
 
     const isSelected = this.context.selection !== undefined ?
       this.context.selection.isSelected(tabFor) :
@@ -109,7 +111,7 @@ class Tab extends Component {
         aria-controls={tabFor}
         onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}
-        tabIndex={isSelected ? '0' : '-1'}
+        tabIndex={focusable || isSelected ? '0' : '-1'}
         className={`rwt__tab ${className || ''}`}
         ref={(e) => { this.tab = e; }}
       >

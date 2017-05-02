@@ -67,6 +67,35 @@ test('<Tab /> should be selectable', () => {
   expect(selected.prop('aria-selected')).toBe(true);
 });
 
+test('<Tab /> that is unselected is not focusable by default', () => {
+  const unselected = mount((
+    <Tab tabFor="foo"><span>Tab 1</span></Tab>
+  ));
+
+  expect(unselected.find('button').prop('tabIndex')).toBe('-1');
+
+  const selected = mount((
+    <Tab selected tabFor="foo"><span>Tab 1</span></Tab>
+  ));
+
+  expect(selected.find('button').prop('tabIndex')).toBe('0');
+});
+
+
+test('<Tab /> that is focusable should always have tabIndex 0', () => {
+  const unselected = mount((
+    <Tab focusable tabFor="foo"><span>Tab 1</span></Tab>
+  ));
+
+  expect(unselected.find('button').prop('tabIndex')).toBe('0');
+
+  const selected = mount((
+    <Tab focusable selected tabFor="foo"><span>Tab 1</span></Tab>
+  ));
+
+  expect(selected.find('button').prop('tabIndex')).toBe('0');
+});
+
 test('<Tab /> should have the correct aria attributes', () => {
   const tab = shallow((
     <Tab tabFor="foo"><span>Tab 1</span></Tab>

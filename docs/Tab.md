@@ -27,6 +27,15 @@ To connect a `<Tab>` to a `<TabPanel>` we need to make an id reference similar t
 
 If you wrap your tab in a `<TabProvider>` or `<Tabs>` component you don't need to manage selection.
 
+## focusable: bool (optional)
+
+According to the [WAI-ARIA Practices 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel) only the active tab should receive focus upon entering and leaving the tab list. Some people find this behavior confusing so to make all tabs focusable you can override this by adding the `focusable` flag.
+
+```js
+
+<Tab focusable tabFor="my-tab">React web tabs</Tab>
+```
+
 ## onClick: func (optional)
 
 On click callback, If you wrap your tab in a `<TabProvider>` or `<Tabs>` component it will get called after it has been selected.
