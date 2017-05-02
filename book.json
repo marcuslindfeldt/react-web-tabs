@@ -1,7 +1,7 @@
 {
   "gitbook": "3.2.2",
   "title": "React Web Tabs",
-  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs"],
+  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "algolia"],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/marcuslindfeldt/react-web-tabs/tree/master",
@@ -9,6 +9,12 @@
     },
     "github": {
       "url": "https://github.com/marcuslindfeldt/react-web-tabs/"
+    },
+    "algolia": {
+        "index": "react-web-tabs",
+        "applicationID": "I61SUGLEM0",
+        "publicKey": "59ab1c30d433859b5350d3e1e36c8231",
+        "freeAccount": "true"
     },
     "theme-default": {
       "styles": {
