@@ -1,0 +1,19 @@
+{
+  "gitbook": "3.2.2",
+  "title": "React Web Tabs",
+  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/marcuslindfeldt/react-web-tabs/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/marcuslindfeldt/react-web-tabs/"
+    },
+    "theme-default": {
+      "styles": {
+        "website": "build/gitbook.css"
+      }
+    }
+  }
+}

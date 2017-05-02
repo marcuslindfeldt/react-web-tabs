@@ -44,7 +44,12 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:travis": "yarn run test:coverage && cat coverage/lcov.info | coveralls",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:build": "yarn run docs:prepare && gitbook build -g marcuslindfeldt/react-web-tabs",
+    "docs:watch": "yarn run docs:prepare && gitbook serve",
+    "docs:publish": "yarn run docs:clean && yarn run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:marcuslindfeldt/react-web-tabs gh-pages --force"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -63,6 +68,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "gitbook-cli": "^2.3.0",
     "jest": "^19.0.2",
     "postcss-cli": "^3.1.1",
     "postcss-import": "^9.1.0",
@@ -74,8 +80,8 @@
     "webpack": "^2.3.3"
   },
   "peerDependencies": {
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "prop-types": "^15.5.8"
+    "react-dom": "^15.5.4"
   }
 }
