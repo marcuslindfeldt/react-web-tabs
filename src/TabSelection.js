@@ -1,18 +1,24 @@
 class TabSelection {
-  constructor({ defaultTab, vertical = false, onChange } = {}) {
+  constructor({ defaultTab, vertical = false, collapsible = false, onChange } = {}) {
     this.selected = defaultTab;
     this.tabs = [];
     this.subscribtions = [];
     this.onChange = onChange;
     this.vertical = vertical;
+    this.collapsible = collapsible;
   }
 
   select(tabId, { focus = false } = {}) {
-    if (!this.tabs.includes(tabId) || this.isSelected(tabId)) {
+    if (!this.tabs.includes(tabId) || (!this.collapsible && this.isSelected(tabId))) {
       return;
     }
 
-    this.selected = tabId;
+    if (this.isSelected(tabId)) {
+      this.selected = undefined;
+    } else {
+      this.selected = tabId;
+    }
+
     this.subscribtions.forEach(callback => callback({ focus }));
 
     if (this.onChange) {
