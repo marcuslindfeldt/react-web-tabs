@@ -62,26 +62,27 @@
     "coveralls": "^2.13.0",
     "cross-env": "^4.0.0",
     "cssnano": "^3.10.0",
-    "enzyme": "^2.8.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "gitbook-cli": "^2.3.0",
-    "jest": "^19.0.2",
+    "jest": "23.1.0",
     "postcss-cli": "^3.1.1",
     "postcss-import": "^9.1.0",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-test-renderer": "^16.4.1",
     "rimraf": "^2.6.1",
     "webpack": "^2.3.3"
   },
   "peerDependencies": {
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   }
 }

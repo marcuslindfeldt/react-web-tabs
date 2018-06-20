@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TabComponent from './TabComponent';
+import withTabSelection from './withTabSelection';
 
 export const KeyCode = {
   END: 35,
@@ -11,61 +13,60 @@ export const KeyCode = {
 };
 
 class Tab extends Component {
-  static contextTypes = {
-    selection: PropTypes.object,
-  }
-
   static defaultProps = {
     className: '',
     selected: false,
-    focusable: false,
     onClick: undefined,
   }
 
   static propTypes = {
+    selection: PropTypes.shape({
+      subscribe: PropTypes.func.isRequired,
+      unsubscribe: PropTypes.func.isRequired,
+      register: PropTypes.func.isRequired,
+      unregister: PropTypes.func.isRequired,
+      isSelected: PropTypes.func.isRequired,
+      select: PropTypes.func.isRequired,
+      selectNext: PropTypes.func.isRequired,
+      selectPrevious: PropTypes.func.isRequired,
+      selectFirst: PropTypes.func.isRequired,
+      selectLast: PropTypes.func.isRequired,
+      isVertical: PropTypes.func.isRequired,
+    }).isRequired,
     tabFor: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     selected: PropTypes.bool,
-    focusable: PropTypes.bool,
     onClick: PropTypes.func,
   }
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.update = this.update.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
 
-    if (this.context.selection) {
-      context.selection.register(props.tabFor);
-    }
+    props.selection.register(props.tabFor);
   }
 
   componentDidMount() {
-    if (this.context.selection) {
-      this.context.selection.subscribe(this.update);
-    }
+    this.props.selection.subscribe(this.update);
   }
 
   componentWillUnmount() {
-    if (this.context.selection) {
-      this.context.selection.unsubscribe(this.update);
-      this.context.selection.unregister(this.props.tabFor);
-    }
+    this.props.selection.unsubscribe(this.update);
+    this.props.selection.unregister(this.props.tabFor);
   }
 
   update({ focus } = {}) {
     this.forceUpdate();
-    if (focus && this.context.selection.isSelected(this.props.tabFor)) {
-      this.tab.focus();
+    if (focus && this.props.selection.isSelected(this.props.tabFor)) {
+      this.tabComponent.focus();
     }
   }
 
   handleClick(event) {
-    if (this.context.selection) {
-      this.context.selection.select(this.props.tabFor);
-    }
+    this.props.selection.select(this.props.tabFor);
 
     if (this.props.onClick) {
       this.props.onClick(event);
@@ -73,52 +74,43 @@ class Tab extends Component {
   }
 
   handleKeyDown(e) {
-    if (!this.context.selection) {
-      return;
-    }
-
-    const verticalOrientation = this.context.selection.isVertical();
+    const verticalOrientation = this.props.selection.isVertical();
     if (e.keyCode === KeyCode.HOME) {
-      this.context.selection.selectFirst({ focus: true });
+      this.props.selection.selectFirst({ focus: true });
     } else if (e.keyCode === KeyCode.END) {
-      this.context.selection.selectLast({ focus: true });
+      this.props.selection.selectLast({ focus: true });
     } else if (e.keyCode === KeyCode.LEFT_ARROW && !verticalOrientation) {
-      this.context.selection.selectPrevious({ focus: true });
+      this.props.selection.selectPrevious({ focus: true });
     } else if (e.keyCode === KeyCode.RIGHT_ARROW && !verticalOrientation) {
-      this.context.selection.selectNext({ focus: true });
+      this.props.selection.selectNext({ focus: true });
     } else if (e.keyCode === KeyCode.UP_ARROW && verticalOrientation) {
       e.preventDefault();
-      this.context.selection.selectPrevious({ focus: true });
+      this.props.selection.selectPrevious({ focus: true });
     } else if (e.keyCode === KeyCode.DOWN_ARROW && verticalOrientation) {
       e.preventDefault();
-      this.context.selection.selectNext({ focus: true });
+      this.props.selection.selectNext({ focus: true });
     }
   }
 
   render() {
-    const { tabFor, children, className, selected, focusable, ...props } = this.props;
-
-    const isSelected = this.context.selection !== undefined ?
-      this.context.selection.isSelected(tabFor) :
-      selected;
+    const { tabFor, children, className, ...props } = this.props;
+    const isSelected = this.props.selection.isSelected(tabFor);
 
     return (
-      <button
+      <TabComponent
         {...props}
-        id={`${tabFor}-tab`}
-        role="tab"
-        aria-selected={isSelected}
-        aria-controls={tabFor}
+        tabFor={tabFor}
         onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}
-        tabIndex={focusable || isSelected ? '0' : '-1'}
-        className={`rwt__tab ${className || ''}`}
-        ref={(e) => { this.tab = e; }}
+        selected={isSelected}
+        className={className}
+        tabRef={(e) => { this.tabComponent = e; }}
       >
         {children}
-      </button>
+      </TabComponent>
     );
   }
 }
 
-export default Tab;
+
+export default withTabSelection(Tab);

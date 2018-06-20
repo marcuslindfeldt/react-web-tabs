@@ -1,41 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TabListComponent from './TabListComponent';
+import withTabSelection from './withTabSelection';
 
-/* eslint-disable jsx-a11y/role-supports-aria-props */
 class TabList extends Component {
-  static contextTypes = {
-    selection: PropTypes.object,
-  }
-
   static defaultProps = {
     className: '',
-    vertical: false,
   }
 
   static propTypes = {
+    selection: PropTypes.shape({
+      isVertical: PropTypes.func.isRequired,
+    }).isRequired,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
-    vertical: PropTypes.bool,
   }
 
   render() {
-    const { children, vertical, className, ...props } = this.props;
-    const verticalOrientation = this.context.selection !== undefined ?
-      this.context.selection.isVertical() :
-      vertical;
+    const { selection, children, className, ...props } = this.props;
+    const verticalOrientation = selection.isVertical();
 
     return (
-      <div
+      <TabListComponent
         {...props}
-        role="tablist"
-        aria-orientation={verticalOrientation ? 'vertical' : ''}
-        className={`rwt__tablist ${className || ''}`}
+        verticalOrientation={verticalOrientation}
+        className={className}
       >
         {children}
-      </div>
+      </TabListComponent>
     );
   }
 }
 
 
-export default TabList;
+export default withTabSelection(TabList);

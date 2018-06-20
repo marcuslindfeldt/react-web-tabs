@@ -72,10 +72,6 @@ Any child node
 
 To connect a `<Tab>` to a `<TabPanel>` we need to make an id reference similar to how form inputs and labels work.
 
-## selected: bool (optional)
-
-If you wrap your tab in a `<TabProvider>` or `<Tabs>` component you don't need to manage selection.
-
 ## props: mixed (optional)
 
 Any additional props that you can provide to a `<div>` element. E.g className, style, title, data attributes, etc.

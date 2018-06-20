@@ -1,8 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import { Tab, TabProvider, TabPanel, TabList } from '../';
 import { KeyCode } from '../Tab';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 test('<TabProvider /> should exist', () => {
   const tabs = mount((

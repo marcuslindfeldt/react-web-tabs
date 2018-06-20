@@ -1,7 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Tab, { KeyCode } from '../Tab';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const mockSelection = () => ({
   register: jest.fn(),
@@ -19,24 +21,24 @@ const mockSelection = () => ({
 
 test('<Tab /> should exist', () => {
   const tab = shallow((
-    <Tab tabFor="foo"><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={mockSelection()} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   expect(tab).toBeDefined();
 });
 
 test('<Tab /> should be a button', () => {
-  const tab = shallow((
-    <Tab tabFor="foo"><span>Tab 1</span></Tab>
+  const tab = mount((
+    <Tab.WrappedComponent selection={mockSelection()} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
-  expect(tab.is('button')).toBe(true);
+  expect(tab.find('button')).toBeDefined();
 });
 
 test('<Tab /> should render children', () => {
   const content = <span id="content">Tab 1</span>;
   const tab = mount((
-    <Tab tabFor="foo">{content}</Tab>
+    <Tab.WrappedComponent selection={mockSelection()} tabFor="foo">{content}</Tab.WrappedComponent>
   ));
 
   expect(tab.find('#content')).toBeTruthy();
@@ -45,7 +47,7 @@ test('<Tab /> should render children', () => {
 test('<Tab /> should call callback on click', () => {
   const onClick = jest.fn();
   const tab = mount((
-    <Tab tabFor="foo" onClick={onClick}><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={mockSelection()} tabFor="foo" onClick={onClick}><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   tab.simulate('click');
@@ -54,28 +56,33 @@ test('<Tab /> should call callback on click', () => {
 });
 
 test('<Tab /> should be selectable', () => {
-  const unselected = shallow((
-    <Tab tabFor="foo"><span>Tab 1</span></Tab>
+  const selection = mockSelection();
+  selection.isSelected = () => false;
+  const unselected = mount((
+    <Tab.WrappedComponent selection={selection} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
-  expect(unselected.prop('aria-selected')).toBe(false);
+  expect(unselected.find('button').prop('aria-selected')).toBe(false);
 
-  const selected = shallow((
-    <Tab tabFor="foo" selected><span>Tab 1</span></Tab>
+  selection.isSelected = () => true;
+  const selected = mount((
+    <Tab.WrappedComponent selection={selection} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
-  expect(selected.prop('aria-selected')).toBe(true);
+  expect(selected.find('button').prop('aria-selected')).toBe(true);
 });
 
 test('<Tab /> that is unselected is not focusable by default', () => {
+  const selection = mockSelection();
   const unselected = mount((
-    <Tab tabFor="foo"><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={selection} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   expect(unselected.find('button').prop('tabIndex')).toBe('-1');
 
+  selection.isSelected = () => true;
   const selected = mount((
-    <Tab selected tabFor="foo"><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={selection} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   expect(selected.find('button').prop('tabIndex')).toBe('0');
@@ -84,31 +91,31 @@ test('<Tab /> that is unselected is not focusable by default', () => {
 
 test('<Tab /> that is focusable should always have tabIndex 0', () => {
   const unselected = mount((
-    <Tab focusable tabFor="foo"><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={mockSelection()} focusable tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   expect(unselected.find('button').prop('tabIndex')).toBe('0');
 
   const selected = mount((
-    <Tab focusable selected tabFor="foo"><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={mockSelection()} focusable selected tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   expect(selected.find('button').prop('tabIndex')).toBe('0');
 });
 
 test('<Tab /> should have the correct aria attributes', () => {
-  const tab = shallow((
-    <Tab tabFor="foo"><span>Tab 1</span></Tab>
+  const tab = mount((
+    <Tab.WrappedComponent selection={mockSelection()} tabFor="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
-  expect(tab.prop('id')).toBe('foo-tab');
-  expect(tab.prop('aria-controls')).toBe('foo');
-  expect(tab.prop('role')).toBe('tab');
+  expect(tab.find('button').prop('id')).toBe('foo-tab');
+  expect(tab.find('button').prop('aria-controls')).toBe('foo');
+  expect(tab.find('button').prop('role')).toBe('tab');
 });
 
 test('<Tab /> should be able to set any className', () => {
   const tab = shallow((
-    <Tab tabFor="foo" className="foo"><span>Tab 1</span></Tab>
+    <Tab.WrappedComponent selection={mockSelection()} tabFor="foo" className="foo"><span>Tab 1</span></Tab.WrappedComponent>
   ));
 
   expect(tab.hasClass('foo')).toBe(true);
@@ -117,13 +124,7 @@ test('<Tab /> should be able to set any className', () => {
 test('<Tab /> should be able to select previous tab with LEFT_ARROW key', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
@@ -134,13 +135,7 @@ test('<Tab /> should be able to select previous tab with LEFT_ARROW key', () => 
 test('<Tab /> should be able to select next tab RIGHT_ARROW key', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.RIGHT_ARROW });
@@ -152,13 +147,7 @@ test('<Tab /> should not be able to select prev/next tab with UP_ARROW/DOWN_ARRO
   const selection = mockSelection();
 
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.UP_ARROW });
@@ -174,13 +163,7 @@ test('<Tab /> should be able to select previous tab with UP_ARROW key when verti
   selection.isVertical = jest.fn(() => true);
 
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.UP_ARROW });
@@ -194,13 +177,7 @@ test('<Tab /> should be able to select next tab DOWN_ARROW key when vertical', (
   selection.isVertical = jest.fn(() => true);
 
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.DOWN_ARROW });
@@ -214,13 +191,7 @@ test('<Tab /> should not be able to select prev/next tab with LEFT_ARROW/RIGHT_A
   selection.isVertical = jest.fn(() => true);
 
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
@@ -233,13 +204,7 @@ test('<Tab /> should not be able to select prev/next tab with LEFT_ARROW/RIGHT_A
 test('<Tab /> should be able to select first tab with HOME key', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.HOME });
@@ -250,13 +215,7 @@ test('<Tab /> should be able to select first tab with HOME key', () => {
 test('<Tab /> should be able to select last tab with END key', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.END });
@@ -267,13 +226,7 @@ test('<Tab /> should be able to select last tab with END key', () => {
 test('<Tab /> should not change selection on unrecognized key event', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown');
@@ -288,13 +241,7 @@ test('<Tab /> should not change selection on unrecognized key event', () => {
 test('<Tab /> should shift focus if selecting a different tab using keyboard navigation', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.simulate('keydown', { keyCode: KeyCode.LEFT_ARROW });
@@ -305,13 +252,7 @@ test('<Tab /> should shift focus if selecting a different tab using keyboard nav
 test('<Tab /> should subscribe and unsubscribe for context changes', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   expect(selection.register).toHaveBeenCalledTimes(1);
@@ -326,13 +267,7 @@ test('<Tab /> should subscribe and unsubscribe for context changes', () => {
 test('<Tab /> should unsubscribe with the same function as subscribed with', () => {
   const selection = mockSelection();
   const tab = mount(
-    <Tab tabFor="foo" ><span>Tab 1</span></Tab>,
-    {
-      childContextTypes: {
-        selection: PropTypes.object.isRequired,
-      },
-      context: { selection },
-    },
+    <Tab.WrappedComponent selection={selection} tabFor="foo" ><span>Tab 1</span></Tab.WrappedComponent>,
   );
 
   tab.unmount();

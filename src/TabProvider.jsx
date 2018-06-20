@@ -1,12 +1,13 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TabSelection from './TabSelection';
 
-class TabProvider extends Component {
-  static childContextTypes = {
-    selection: PropTypes.object,
-  }
 
+export const TabSelectionContext = React.createContext({
+  selection: {},
+});
+
+class TabProvider extends Component {
   static defaultProps = {
     defaultTab: undefined,
     onChange: undefined,
@@ -30,12 +31,6 @@ class TabProvider extends Component {
     });
   }
 
-  getChildContext() {
-    return {
-      selection: this.selection,
-    };
-  }
-
   componentWillReceiveProps(nextProps) {
     if (!this.selection.isSelected(nextProps.defaultTab)) {
       this.selection.select(nextProps.defaultTab);
@@ -44,8 +39,11 @@ class TabProvider extends Component {
 
   render() {
     const { children } = this.props;
-
-    return children;
+    return (
+      <TabSelectionContext.Provider value={this.selection}>
+        {children}
+      </TabSelectionContext.Provider>
+    );
   }
 }
 

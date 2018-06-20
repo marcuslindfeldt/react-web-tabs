@@ -1,12 +1,20 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import TabList from '../TabList';
 
+Enzyme.configure({ adapter: new Adapter() });
+
+const mockSelection = () => ({
+  isVertical: jest.fn(),
+});
 
 test('<TabList /> should exist', () => {
   const tabList = shallow((
-    <TabList><span>Foo</span></TabList>
+    <TabList.WrappedComponent selection={mockSelection()}>
+      <span>Foo</span>
+    </TabList.WrappedComponent>
   ));
 
   expect(tabList).toBeDefined();
@@ -14,32 +22,40 @@ test('<TabList /> should exist', () => {
 
 test('<TabList /> should render children', () => {
   const tabList = mount((
-    <TabList><span id="content">Foo</span></TabList>
+    <TabList.WrappedComponent selection={mockSelection()}>
+      <span id="content">Foo</span>
+    </TabList.WrappedComponent>
   ));
 
   expect(tabList.find('#content')).toBeTruthy();
 });
 
 test('<TabList /> should have the correct aria attributes', () => {
-  const tabList = shallow((
-    <TabList><span>Foo</span></TabList>
+  const tabList = mount((
+    <TabList.WrappedComponent selection={mockSelection()}>
+      <span>Foo</span>
+    </TabList.WrappedComponent>
   ));
 
-  expect(tabList.prop('role')).toEqual('tablist');
+  expect(tabList.find('div').prop('role')).toEqual('tablist');
 });
 
 test('<TabList /> should be able to set any className', () => {
   const tabList = shallow((
-    <TabList className="foo"><span>Foo</span></TabList>
+    <TabList.WrappedComponent selection={mockSelection()} className="foo">
+      <span>Foo</span>
+    </TabList.WrappedComponent>
   ));
 
   expect(tabList.hasClass('foo')).toBe(true);
 });
 
 test('<TabList /> should be set aria-orientation when vertical', () => {
-  const tabList = shallow((
-    <TabList vertical><span>Foo</span></TabList>
+  const selection = mockSelection();
+  selection.isVertical = () => true;
+  const tabList = mount((
+    <TabList.WrappedComponent selection={selection}><span>Foo</span></TabList.WrappedComponent>
   ));
 
-  expect(tabList.prop('aria-orientation')).toBe('vertical');
+  expect(tabList.find('div').prop('aria-orientation')).toBe('vertical');
 });
