@@ -178,3 +178,31 @@ test('TabSelection should call an optional onChange callback when something has 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenCalledWith('bar');
 });
+
+test('If the collapsible option is passed to TabSelection it should deselect the current tab if selected again', () => {
+  const collapsible = true;
+
+  const tabSelection = new TabSelection({ defaultTab: 'foo', collapsible });
+  tabSelection.register('foo');
+  tabSelection.register('bar');
+
+  tabSelection.select('bar');
+  expect(tabSelection.selected).toBe('bar');
+
+  tabSelection.select('bar');
+  expect(tabSelection.selected).toBe(undefined);
+  expect(tabSelection.selected).not.toBe('bar');
+});
+
+test('If the collapsible option is not passed to TabSelection it should not deselect the current tab if selected again', () => {
+  const tabSelection = new TabSelection({ defaultTab: 'foo' });
+  tabSelection.register('foo');
+  tabSelection.register('bar');
+
+  tabSelection.select('bar');
+  expect(tabSelection.selected).toBe('bar');
+
+  tabSelection.select('bar');
+  expect(tabSelection.selected).toBe('bar');
+  expect(tabSelection.selected).not.toBe(undefined);
+});

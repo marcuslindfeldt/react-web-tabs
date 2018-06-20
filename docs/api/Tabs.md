@@ -39,6 +39,10 @@ See `<TabProvider>`.
 Adds the `data-rwt-vertical="true"` attribute and provides functionality for vertical tabs.
 See `<TabProvider>`.
 
+## collapsible: bool (optional)
+
+See `<TabProvider>`.
+
 ## onChange: func (optional)
 
 See `<TabProvider>`.

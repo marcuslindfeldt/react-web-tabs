@@ -49,6 +49,10 @@ The id of the tab that should be selected by default. If none is provided it wil
 
 Provides support for vertically aligned tabs. Correct aria-attributes will be set and keyboard shortcuts will change from right/left arrow to up/down arrow.
 
+## collapsible: bool (optional)
+
+Provides support for deselection of current tab. If an active tab is selected it will be deselected.
+
 ## onChange: func (optional)
 
 A callback that is triggered when a new tab has been selected.

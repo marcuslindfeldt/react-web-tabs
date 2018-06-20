@@ -12,12 +12,14 @@ class TabProvider extends Component {
     defaultTab: undefined,
     onChange: undefined,
     vertical: false,
+    collapsible: false,
   }
 
   static propTypes = {
     children: PropTypes.node.isRequired,
     defaultTab: PropTypes.string,
     vertical: PropTypes.bool,
+    collapsible: PropTypes.bool,
     onChange: PropTypes.func,
   }
 
@@ -27,6 +29,7 @@ class TabProvider extends Component {
     this.selection = new TabSelection({
       defaultTab: props.defaultTab,
       vertical: props.vertical,
+      collapsible: props.collapsible,
       onChange: props.onChange,
     });
   }

@@ -7,6 +7,7 @@ class Tabs extends Component {
     defaultTab: undefined,
     className: '',
     vertical: false,
+    collapsible: false,
     onChange: undefined,
   }
 
@@ -15,13 +16,28 @@ class Tabs extends Component {
     defaultTab: PropTypes.string,
     className: PropTypes.string,
     vertical: PropTypes.bool,
+    collapsible: PropTypes.bool,
     onChange: PropTypes.func,
   }
 
   render() {
-    const { children, defaultTab, onChange, vertical, className, ...props } = this.props;
+    const {
+      children,
+      defaultTab,
+      onChange,
+      vertical,
+      collapsible,
+      className,
+      ...props
+    } = this.props;
+
     return (
-      <TabProvider defaultTab={defaultTab} onChange={onChange} vertical={vertical}>
+      <TabProvider
+        defaultTab={defaultTab}
+        onChange={onChange}
+        vertical={vertical}
+        collapsible={collapsible}
+      >
         <div {...props} data-rwt-vertical={vertical} className={`rwt__tabs ${className || ''}`}>
           {children}
         </div>
