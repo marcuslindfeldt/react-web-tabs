@@ -1,9 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 import Tab, { KeyCode } from '../Tab';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const mockSelection = () => ({
   register: jest.fn(),

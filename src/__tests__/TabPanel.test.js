@@ -1,9 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow, mount, render } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount, render } from 'enzyme';
 import TabPanel from '../TabPanel';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const mockSelection = () => ({
   subscribe: jest.fn(),

@@ -25,6 +25,7 @@
   ],
   "license": "MIT",
   "jest": {
+    "setupTestFrameworkScriptFile": "./jestSetup.js",
     "coverageReporters": [
       "lcov",
       "text"
