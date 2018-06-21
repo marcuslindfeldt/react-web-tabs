@@ -22,18 +22,18 @@ class TabComponent extends Component {
     tabRef: PropTypes.func,
   }
 
-  handleClick = (e) => {
-    const { onClick } = this.props;
-    if (onClick) onClick(e);
-  }
-
-  handleKeyDown = (e) => {
-    const { onKeyDown } = this.props;
-    if (onKeyDown) onKeyDown(e);
-  }
-
   render() {
-    const { tabFor, children, className, selected, focusable, tabRef, ...props } = this.props;
+    const {
+      tabFor,
+      children,
+      className,
+      selected,
+      focusable,
+      tabRef,
+      onClick,
+      onKeyDown,
+      ...props
+    } = this.props;
 
     return (
       <button
@@ -42,8 +42,8 @@ class TabComponent extends Component {
         role="tab"
         aria-selected={selected}
         aria-controls={tabFor}
-        onClick={this.handleClick}
-        onKeyDown={this.handleKeyDown}
+        onClick={onClick}
+        onKeyDown={onKeyDown}
         tabIndex={focusable || selected ? '0' : '-1'}
         className={`rwt__tab ${className || ''}`}
         ref={tabRef}
