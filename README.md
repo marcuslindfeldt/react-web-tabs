@@ -13,7 +13,7 @@ See the [demo website](https://react-web-tabs.firebaseapp.com/) for a live examp
 Read the [docs](https://marcuslindfeldt.github.io/react-web-tabs/) for more comprehensive [examples](https://marcuslindfeldt.github.io/react-web-tabs/examples) and [API Reference](https://marcuslindfeldt.github.io/react-web-tabs/docs/api/).
 
 ## Installation
-> Note! This package depends on [React](https://facebook.github.io/react/) ^16.4.1
+> Note! This package depends on [React](https://facebook.github.io/react/) ^16.3.0
 
 Using [npm](https://www.npmjs.com/):
 ```bash

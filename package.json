@@ -74,15 +74,15 @@
     "postcss-cli": "^3.1.1",
     "postcss-import": "^9.1.0",
     "prop-types": "^15.5.8",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-test-renderer": "^16.4.1",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-test-renderer": "^16.3.0",
     "rimraf": "^2.6.1",
     "webpack": "^2.3.3"
   },
   "peerDependencies": {
     "prop-types": "^15.5.8",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
   }
 }
