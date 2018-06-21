@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TabPanelComponent from '../TabPanelComponent';
 
 const mockSelection = () => ({
@@ -44,13 +44,13 @@ test('<TabPanelComponent /> should render children', () => {
 });
 
 test('<TabPanelComponent /> should have the correct aria attributes', () => {
-  const tabPanel = render((
+  const tabPanel = mount((
     <TabPanelComponent selection={mockSelection()} tabId="foo"><span>Foo</span></TabPanelComponent>
   ));
 
-  expect(tabPanel.prop('id')).toBe('foo');
-  expect(tabPanel.prop('aria-labelledby')).toBe('foo-tab');
-  expect(tabPanel.prop('role')).toBe('tabpanel');
+  expect(tabPanel.find('div').prop('id')).toBe('foo');
+  expect(tabPanel.find('div').prop('aria-labelledby')).toBe('foo-tab');
+  expect(tabPanel.find('div').prop('role')).toBe('tabpanel');
 });
 
 test('<TabPanelComponent /> should have the rwt__tabpanel className by default', () => {
