@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TabPanelComponent from './TabPanelComponent';
+import withTabSelection from './withTabSelection';
 
 /* eslint-disable no-nested-ternary */
 class TabPanel extends Component {
-  static contextTypes = {
-    selection: PropTypes.object,
-  }
-
-  static defaultProps = {
-    selected: false,
-    className: '',
-    component: null,
-    children: null,
-    render: null,
-  }
-
   static propTypes = {
+    selection: PropTypes.shape({
+      subscribe: PropTypes.func.isRequired,
+      unsubscribe: PropTypes.func.isRequired,
+      isSelected: PropTypes.func.isRequired,
+    }).isRequired,
     tabId: PropTypes.string.isRequired,
-    children: PropTypes.node,
-    className: PropTypes.string,
-    selected: PropTypes.bool,
-    component: PropTypes.func,
-    render: PropTypes.func,
   }
 
   constructor(props) {
@@ -30,15 +20,11 @@ class TabPanel extends Component {
   }
 
   componentDidMount() {
-    if (this.context.selection) {
-      this.context.selection.subscribe(this.update);
-    }
+    this.props.selection.subscribe(this.update);
   }
 
   componentWillUnmount() {
-    if (this.context.selection) {
-      this.context.selection.unsubscribe(this.update);
-    }
+    this.props.selection.unsubscribe(this.update);
   }
 
   update() {
@@ -47,42 +33,20 @@ class TabPanel extends Component {
 
   render() {
     const {
-      component,
-      render,
       tabId,
-      children,
-      selected,
-      className,
       ...props
     } = this.props;
 
-    const isSelected = this.context.selection !== undefined ?
-      this.context.selection.isSelected(tabId) :
-      selected;
-
-    const childProps = { selected: isSelected };
+    const selected = this.props.selection.isSelected(tabId);
 
     return (
-      <div
+      <TabPanelComponent
+        tabId={tabId}
+        selected={selected}
         {...props}
-        id={tabId}
-        role="tabpanel"
-        aria-expanded={isSelected}
-        aria-hidden={!isSelected}
-        aria-labelledby={`${tabId}-tab`}
-        hidden={!isSelected}
-        className={`rwt__tabpanel ${className || ''}`}
-      >
-        {component ? (
-          React.createElement(component, childProps)
-        ) : render ? (
-          render(childProps) : null
-        ) : children ? (
-          children : null
-        ) : null}
-      </div>
+      />
     );
   }
 }
 
-export default TabPanel;
+export default withTabSelection(TabPanel);
