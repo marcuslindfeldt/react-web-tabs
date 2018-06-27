@@ -1,0 +1,444 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Tabs · React Web Tabs</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-algolia/plugin-algolia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="TabProvider.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../examples/">
+            
+                <a href="../examples/">
+            
+                    
+                    Examples
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../examples/basic.html">
+            
+                <a href="../examples/basic.html">
+            
+                    
+                    Basic
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../examples/vertical.html">
+            
+                <a href="../examples/vertical.html">
+            
+                    
+                    Vertical
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../examples/custom_markup.html">
+            
+                <a href="../examples/custom_markup.html">
+            
+                    
+                    Custom markup
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    API Reference
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="Tab.html">
+            
+                <a href="Tab.html">
+            
+                    
+                    Tab
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="TabList.html">
+            
+                <a href="TabList.html">
+            
+                    
+                    TabList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="TabPanel.html">
+            
+                <a href="TabPanel.html">
+            
+                    
+                    TabPanel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="TabProvider.html">
+            
+                <a href="TabProvider.html">
+            
+                    
+                    TabProvider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.5" data-path="Tabs.html">
+            
+                <a href="Tabs.html">
+            
+                    
+                    Tabs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Tabs</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="tabs"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Tabs</span><span class="token punctuation">&gt;</span></span></code></h1>
+<p>A Tabs container element that uses the <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TabProvider</span><span class="token punctuation">&gt;</span></span></code> behind the scenes.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Tabs <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;react-web-tabs&apos;</span>
+
+<span class="token operator">&lt;</span>Tabs defaultTab<span class="token operator">=</span><span class="token string">&quot;two&quot;</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span>tabId<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>tabId<span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>TabList<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>Tab tabFor<span class="token operator">=</span><span class="token string">&quot;one&quot;</span><span class="token operator">&gt;</span>Tab <span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>Tab<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>Tab tabFor<span class="token operator">=</span><span class="token string">&quot;two&quot;</span><span class="token operator">&gt;</span>Tab <span class="token number">2</span><span class="token operator">&lt;</span><span class="token operator">/</span>Tab<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>TabList<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>TabPanel tabId<span class="token operator">=</span><span class="token string">&quot;one&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>Tab <span class="token number">1</span> content<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>TabPanel<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>TabPanel tabId<span class="token operator">=</span><span class="token string">&quot;two&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>Tab <span class="token number">2</span> content<span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>TabPanel<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>Tabs<span class="token operator">&gt;</span>
+</code></pre>
+<h2 id="children-node">children: node</h2>
+<p>Any child node</p>
+<pre class="language-"><code class="lang-js"><span class="token operator">&lt;</span>Tabs<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>button<span class="token operator">&gt;</span>Tab <span class="token number">1</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>button<span class="token operator">&gt;</span>Tab <span class="token number">2</span><span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>Tabs<span class="token operator">&gt;</span>
+</code></pre>
+<h2 id="defaulttab-string-optional">defaultTab: string (optional)</h2>
+<p>See <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TabProvider</span><span class="token punctuation">&gt;</span></span></code>.</p>
+<h2 id="vertical-bool-optional">vertical: bool (optional)</h2>
+<p>Adds the <code>data-rwt-vertical=&quot;true&quot;</code> attribute and provides functionality for vertical tabs.
+See <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TabProvider</span><span class="token punctuation">&gt;</span></span></code>.</p>
+<h2 id="collapsible-bool-optional">collapsible: bool (optional)</h2>
+<p>See <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TabProvider</span><span class="token punctuation">&gt;</span></span></code>.</p>
+<h2 id="onchange-func-optional">onChange: func (optional)</h2>
+<p>See <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TabProvider</span><span class="token punctuation">&gt;</span></span></code>.</p>
+<h2 id="props-mixed-optional">props: mixed (optional)</h2>
+<p>Any additional props that you can provide to a <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span></code> element. E.g className, style, title, data attributes, etc.</p>
+<pre class="language-"><code class="lang-js"><span class="token operator">&lt;</span>Tabs
+  className<span class="token operator">=</span><span class="token string">&quot;my-tabs&quot;</span>
+  title<span class="token operator">=</span><span class="token string">&quot;My tabs&quot;</span>
+  style<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> background<span class="token punctuation">:</span> <span class="token string">&apos;rebeccapurple&apos;</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+<span class="token operator">&gt;</span>
+  React web tabs
+<span class="token operator">&lt;</span><span class="token operator">/</span>Tabs<span class="token operator">&gt;</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+    
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+
+    
+    <div class="powered-by-algolia">
+        powered by <a href="https://algolia.com" target="_blank"><img src="../../gitbook/gitbook-plugin-algolia/algolia-logo.jpg" /></a>
+    </div>
+    
+
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="TabProvider.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: TabProvider">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Tabs","level":"1.3.5","depth":2,"previous":{"title":"TabProvider","level":"1.3.4","depth":2,"path":"docs/api/TabProvider.md","ref":"docs/api/TabProvider.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","algolia"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/marcuslindfeldt/react-web-tabs/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"algolia":{"freeAccount":"true","index":"react-web-tabs","applicationID":"I61SUGLEM0","publicKey":"59ab1c30d433859b5350d3e1e36c8231"},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/marcuslindfeldt/react-web-tabs/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"React Web Tabs","gitbook":"3.2.2"},"file":{"path":"docs/api/Tabs.md","mtime":"2018-06-27T09:05:54.951Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-06-27T10:57:33.374Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-algolia/search-algolia.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

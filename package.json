@@ -1,0 +1,89 @@
+{
+  "name": "react-web-tabs",
+  "version": "1.0.0",
+  "description": "Modular and accessible React tabs component",
+  "main": "dist/react-web-tabs.js",
+  "module": "es/index.js",
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
+  "author": "Marcus Lindfeldt",
+  "homepage": "https://github.com/marcuslindfeldt/react-web-tabs",
+  "bugs": {
+    "url": "https://github.com/marcuslindfeldt/react-web-tabs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcuslindfeldt/react-web-tabs.git"
+  },
+  "keywords": [
+    "react",
+    "tabs",
+    "a11y"
+  ],
+  "license": "MIT",
+  "jest": {
+    "setupTestFrameworkScriptFile": "./jestSetup.js",
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
+  },
+  "scripts": {
+    "prepublish": "yarn run clean && yarn run lint && yarn run test && yarn run build",
+    "clean": "rimraf dist es lib coverage",
+    "build": "yarn run build:es && yarn build:commonjs && yarn run build:umd && yarn run build:umd:min && yarn build:styles && yarn build:styles:min",
+    "build:es": "babel src -d es --ignore __tests__",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src -d lib --ignore __tests__",
+    "build:umd": "cross-env NODE_ENV=production webpack",
+    "build:umd:min": "cross-env NODE_ENV=production webpack -p --env.minify true",
+    "build:styles": "postcss -o dist/react-web-tabs.css styles/*.css",
+    "build:styles:min": "cross-env NODE_ENV=production postcss -o dist/react-web-tabs.min.css styles/*.css",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:travis": "yarn run test:coverage && cat coverage/lcov.info | coveralls",
+    "lint": "eslint .",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:build": "yarn run docs:prepare && gitbook build -g marcuslindfeldt/react-web-tabs",
+    "docs:watch": "yarn run docs:prepare && gitbook serve",
+    "docs:publish": "yarn run docs:clean && yarn run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:marcuslindfeldt/react-web-tabs gh-pages --force"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.3",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "coveralls": "^2.13.0",
+    "cross-env": "^4.0.0",
+    "cssnano": "^3.10.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "gitbook-cli": "^2.3.0",
+    "jest": "23.1.0",
+    "postcss-cli": "^3.1.1",
+    "postcss-import": "^9.1.0",
+    "prop-types": "^15.5.8",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "react-test-renderer": "^16.3.0",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.3.3"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.8",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  }
+}
