@@ -56,6 +56,48 @@ test('<TabProvider /> should update to new tab on click', () => {
   expect(tabs.find('#second').prop('aria-expanded')).toBe(false);
 });
 
+test('<TabProvider /> should not reset to default tab when parent updates', () => {
+  class TestComponent extends React.Component {
+    state = {
+      state: 'one',
+    }
+
+    render() {
+      return (
+        <TabProvider defaultTab="second">
+          <div className="rwt__tabs">
+            <TabList>
+              <Tab tabFor="first"><span>Tab 1</span></Tab>
+              <Tab tabFor="second"><span>Tab 2</span></Tab>
+            </TabList>
+            <TabPanel tabId="first"><p>TabPanel 1</p></TabPanel>
+            <TabPanel tabId="second"><p>TabPanel 2</p></TabPanel>
+          </div>
+        </TabProvider>
+      );
+    }
+  }
+  const tabs = mount((
+    <TestComponent />
+  ));
+
+  expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
+  expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
+
+  tabs.find('#first-tab').simulate('click');
+
+  expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
+  expect(tabs.find('#first').prop('aria-expanded')).toBe(true);
+
+  tabs.setState({ state: 'two' });
+
+  expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
+  expect(tabs.find('#first').prop('aria-expanded')).toBe(true);
+
+  expect(tabs.find('#second-tab').prop('aria-selected')).toBe(false);
+  expect(tabs.find('#second').prop('aria-expanded')).toBe(false);
+});
+
 test('<TabProvider /> should call onChange callback on selection', () => {
   const onChange = jest.fn();
 
@@ -77,7 +119,7 @@ test('<TabProvider /> should call onChange callback on selection', () => {
   expect(onChange).toHaveBeenCalledWith('first');
 });
 
-test('<TabProvider /> should select correct tab when selected prop updates', () => {
+test('<TabProvider /> should select correct tab when default tab prop changes', () => {
   const onChange = jest.fn();
 
   const tabs = mount((
@@ -95,11 +137,29 @@ test('<TabProvider /> should select correct tab when selected prop updates', () 
 
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
-  tabs.find('#first-tab').simulate('click');
+  tabs.setProps({ defaultTab: 'first' });
   expect(tabs.find('#first-tab').prop('aria-selected')).toBe(true);
   expect(tabs.find('#first').prop('aria-expanded')).toBe(true);
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(false);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(false);
+});
+
+test('<TabProvider /> should not change tab when props are unchanged', () => {
+  const onChange = jest.fn();
+
+  const tabs = mount((
+    <TabProvider defaultTab="second" onChange={onChange}>
+      <div className="rwt__tabs">
+        <TabList>
+          <Tab tabFor="first"><span>Tab 1</span></Tab>
+          <Tab tabFor="second"><span>Tab 2</span></Tab>
+        </TabList>
+        <TabPanel tabId="first"><p>TabPanel 1</p></TabPanel>
+        <TabPanel tabId="second"><p>TabPanel 2</p></TabPanel>
+      </div>
+    </TabProvider>
+  ));
+
   tabs.setProps({ defaultTab: 'second' });
   expect(tabs.find('#second-tab').prop('aria-selected')).toBe(true);
   expect(tabs.find('#second').prop('aria-expanded')).toBe(true);
